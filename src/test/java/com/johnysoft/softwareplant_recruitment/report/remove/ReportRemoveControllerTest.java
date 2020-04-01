@@ -1,12 +1,12 @@
-package com.johnysoft.softwareplant_recretment.report.remove;
+package com.johnysoft.softwareplant_recruitment.report.remove;
 
-import com.johnysoft.softwareplant_recretment.AbstractDocumentationTest;
+import com.johnysoft.softwareplant_recruitment.AbstractDocumentationTest;
 import io.restassured.RestAssured;
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.mock.mockito.MockBean;
 
-import static com.johnysoft.softwareplant_recretment.report.remove.ReportRemoveController.DELETE_REPORT_BY_ID_URL;
-import static com.johnysoft.softwareplant_recretment.report.remove.ReportRemoveController.DELETE_REPORT_URL;
+import static com.johnysoft.softwareplant_recruitment.report.remove.ReportRemoveController.DELETE_REPORT_BY_ID_URL;
+import static com.johnysoft.softwareplant_recruitment.report.remove.ReportRemoveController.DELETE_REPORT_URL;
 import static org.mockito.Mockito.doThrow;
 import static org.mockito.Mockito.verify;
 import static org.springframework.http.HttpStatus.INTERNAL_SERVER_ERROR;

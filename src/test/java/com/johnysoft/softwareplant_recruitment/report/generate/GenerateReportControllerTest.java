@@ -1,13 +1,13 @@
-package com.johnysoft.softwareplant_recretment.report.generate;
+package com.johnysoft.softwareplant_recruitment.report.generate;
 
-import com.johnysoft.softwareplant_recretment.AbstractDocumentationTest;
+import com.johnysoft.softwareplant_recruitment.AbstractDocumentationTest;
 import io.restassured.RestAssured;
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.http.HttpStatus;
 
-import static com.johnysoft.softwareplant_recretment.report.generate.GenerateReportController.REPORT_GENERATE_URL;
-import static com.johnysoft.softwareplant_recretment.report.generate.GenerateReportController.REPORT_URL;
+import static com.johnysoft.softwareplant_recruitment.report.generate.GenerateReportController.REPORT_GENERATE_URL;
+import static com.johnysoft.softwareplant_recruitment.report.generate.GenerateReportController.REPORT_URL;
 import static org.mockito.ArgumentMatchers.eq;
 import static org.mockito.Mockito.doThrow;
 import static org.mockito.Mockito.verify;

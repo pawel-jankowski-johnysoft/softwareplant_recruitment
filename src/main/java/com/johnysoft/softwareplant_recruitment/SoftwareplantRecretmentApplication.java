@@ -1,4 +1,4 @@
-package com.johnysoft.softwareplant_recretment;
+package com.johnysoft.softwareplant_recruitment;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;

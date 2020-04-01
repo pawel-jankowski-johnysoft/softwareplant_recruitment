@@ -1,4 +1,4 @@
-package com.johnysoft.softwareplant_recretment;
+package com.johnysoft.softwareplant_recruitment;
 
 import io.restassured.RestAssured;
 import org.junit.jupiter.api.BeforeEach;

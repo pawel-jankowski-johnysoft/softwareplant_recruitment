@@ -1,4 +1,4 @@
-package com.johnysoft.softwareplant_recretment.report.remove;
+package com.johnysoft.softwareplant_recruitment.report.remove;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.DeleteMapping;

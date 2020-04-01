@@ -1,4 +1,4 @@
-package com.johnysoft.softwareplant_recretment.report.remove;
+package com.johnysoft.softwareplant_recruitment.report.remove;
 
 import lombok.NonNull;
 import lombok.RequiredArgsConstructor;

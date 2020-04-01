@@ -1,4 +1,4 @@
-package com.johnysoft.softwareplant_recretment.report;
+package com.johnysoft.softwareplant_recruitment.report;
 
 import lombok.Data;
 
