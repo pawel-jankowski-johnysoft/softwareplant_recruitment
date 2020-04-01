@@ -5,6 +5,6 @@ import org.springframework.stereotype.Component;
 @Component
 class ReportGenerator {
 
-    public void generateReport(Long reportId) {
+    public void generateReport(Long reportId, GenerateReportQueryCriteria criteria) {
     }
 }

@@ -1,0 +1,22 @@
+databaseChangeLog:
+  - changeSet:
+      id: 2
+      author: Johnthebest
+      changes:
+        - addColumn:
+            tableName: Report
+            columns:
+              - column:
+                  name: query_criteria_character_phrase
+                  type: varchar(255)
+                  constraints:
+                    nullable: false
+              - column:
+                  name: query_criteria_planet_name
+                  type: varchar(255)
+                  constraints:
+                    nullable: false
+        - renameColumn:
+            tableName: Report
+            oldColumnName: id
+            newColumnName: report_id
