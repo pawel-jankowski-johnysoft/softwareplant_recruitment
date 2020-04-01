@@ -1,8 +1,10 @@
 package com.johnysoft.softwareplant_recretment.report.generate;
 
 import lombok.RequiredArgsConstructor;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
@@ -21,7 +23,8 @@ class GenerateReportController {
 
     @PutMapping(REPORT_GENERATE_URL)
     @ResponseStatus(code = NO_CONTENT)
-    public void generateReport(@PathVariable Long reportId) {
-        reportGenerator.generateReport(reportId);
+    public void generateReport(@PathVariable Long reportId,
+                               @RequestBody @Validated GenerateReportQueryCriteria criteria) {
+        reportGenerator.generateReport(reportId, criteria);
     }
 }
