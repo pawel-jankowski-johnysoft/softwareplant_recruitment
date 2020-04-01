@@ -1,4 +1,4 @@
-package com.johnysoft.softwareplant_recretment.report.generate;
+package com.johnysoft.softwareplant_recruitment.report.generate;
 
 import org.springframework.stereotype.Component;
 
