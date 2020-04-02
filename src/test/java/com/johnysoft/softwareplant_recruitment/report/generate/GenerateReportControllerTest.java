@@ -17,9 +17,9 @@ import static org.springframework.http.HttpStatus.NO_CONTENT;
 
 class GenerateReportControllerTest extends AbstractDocumentationTest {
 
-    private static final String GENERATE_REPORT_PATH = REPORT_URL + REPORT_GENERATE_URL;
+    private static final String GENERATE_REPORT_URL = REPORT_URL + REPORT_GENERATE_URL;
 
-    private static final long GIVEN_REPORT_URL = -1;
+    private static final long GIVEN_REPORT_ID = -1;
     private static final String CHARACTER_PHRASE = "CHARACTER_PHRASE";
     private static final String PLANET_NAME = "PLANET_NAME";
 
@@ -41,12 +41,12 @@ class GenerateReportControllerTest extends AbstractDocumentationTest {
         RestAssured.given()
                 .contentType(JSON)
                 .body(QUERY_CRITERIA)
-                .put(GENERATE_REPORT_PATH, GIVEN_REPORT_URL)
+                .put(GENERATE_REPORT_URL, GIVEN_REPORT_ID)
                 .then()
                 .statusCode(NO_CONTENT.value());
 
         //and
-        verify(reportGenerator).generateReport(eq(GIVEN_REPORT_URL), eq(QUERY_CRITERIA));
+        verify(reportGenerator).generateReport(eq(GIVEN_REPORT_ID), eq(QUERY_CRITERIA));
     }
 
     @Test
@@ -54,7 +54,7 @@ class GenerateReportControllerTest extends AbstractDocumentationTest {
         RestAssured.given()
                 .contentType(JSON)
                 .body(new GenerateReportQueryCriteria())
-                .put(GENERATE_REPORT_PATH, GIVEN_REPORT_URL)
+                .put(GENERATE_REPORT_URL, GIVEN_REPORT_ID)
                 .then()
                 .statusCode(BAD_REQUEST.value());
     }
@@ -63,12 +63,12 @@ class GenerateReportControllerTest extends AbstractDocumentationTest {
     public void problemWithGeneratingReport() {
         //given
         doThrow(IllegalStateException.class).when(reportGenerator)
-                .generateReport(eq(GIVEN_REPORT_URL), eq(QUERY_CRITERIA));
+                .generateReport(eq(GIVEN_REPORT_ID), eq(QUERY_CRITERIA));
 
         RestAssured.given()
                 .contentType(JSON)
                 .body(QUERY_CRITERIA)
-                .put(GENERATE_REPORT_PATH, GIVEN_REPORT_URL)
+                .put(GENERATE_REPORT_URL, GIVEN_REPORT_ID)
                 .then()
                 .statusCode(INTERNAL_SERVER_ERROR.value());
     }

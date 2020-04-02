@@ -15,12 +15,15 @@ import static lombok.AccessLevel.PRIVATE;
 @Data
 @FieldDefaults(level = PRIVATE)
 public class Report {
+    private static final String CHARACTER_PHRASE_COLUMN_NAME = "query_criteria_character_phrase";
+    private static final String PLANET_NAME_COLUMN_NAME = "query_criteria_planet_name";
+
     @Id
     @GeneratedValue(strategy = AUTO)
     Long reportId;
 
-    @Column(name = "query_criteria_character_phrase", nullable = false)
+    @Column(name = CHARACTER_PHRASE_COLUMN_NAME, nullable = false)
     String characterPhrase;
-    @Column(name = "query_criteria_planet_name", nullable = false)
+    @Column(name = PLANET_NAME_COLUMN_NAME, nullable = false)
     String planetName;
 }

@@ -3,6 +3,7 @@ package com.johnysoft.softwareplant_recruitment.report.generate;
 import com.johnysoft.softwareplant_recruitment.report.generate.swapi.SwapiDataProvider;
 import com.johnysoft.softwareplant_recruitment.report.generate.swapi.SwapiSearchParams;
 import com.johnysoft.softwareplant_recruitment.report.generate.swapi.model.SwapiDataModel;
+import lombok.NonNull;
 import lombok.RequiredArgsConstructor;
 import lombok.experimental.FieldDefaults;
 import org.springframework.stereotype.Component;
@@ -16,7 +17,7 @@ class ReportGenerator {
     SwapiDataProvider swapiDataProvider;
     ReportCreator reportCreator;
 
-    public void generateReport(Long reportId, GenerateReportQueryCriteria criteria) {
+    public void generateReport(@NonNull Long reportId, GenerateReportQueryCriteria criteria) {
         final SwapiDataModel swapiData = getSwapiData(criteria);
         buildReport(reportId, criteria, swapiData);
     }
