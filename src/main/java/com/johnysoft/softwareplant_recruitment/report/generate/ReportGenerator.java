@@ -1,5 +1,7 @@
 package com.johnysoft.softwareplant_recruitment.report.generate;
 
+import com.johnysoft.softwareplant_recruitment.report.Report;
+import com.johnysoft.softwareplant_recruitment.report.generate.ReportCreator.ReportDetails;
 import com.johnysoft.softwareplant_recruitment.report.generate.swapi.SwapiDataProvider;
 import com.johnysoft.softwareplant_recruitment.report.generate.swapi.SwapiSearchParams;
 import com.johnysoft.softwareplant_recruitment.report.generate.swapi.model.SwapiDataModel;
@@ -16,22 +18,19 @@ import static lombok.AccessLevel.PRIVATE;
 class ReportGenerator {
     SwapiDataProvider swapiDataProvider;
     ReportCreator reportCreator;
+    ReportPersister reportPersister;
 
     public void generateReport(@NonNull Long reportId, GenerateReportQueryCriteria criteria) {
         final SwapiDataModel swapiData = getSwapiData(criteria);
-        buildReport(reportId, criteria, swapiData);
+        final Report report = reportCreator.create(ReportDetails.of(reportId, criteria.getQueryCriteriaCharacterPhrase(),
+                criteria.getQueryCriteriaPlanetName(), swapiData.getRecords()));
+
+        reportPersister.saveReport(report);
     }
 
     private SwapiDataModel getSwapiData(GenerateReportQueryCriteria criteria) {
         return swapiDataProvider.getReportData(SwapiSearchParams.builder()
                 .characterPhrase(criteria.getQueryCriteriaCharacterPhrase())
                 .planetName(criteria.getQueryCriteriaPlanetName()).build());
-    }
-
-    private void buildReport(Long reportId, GenerateReportQueryCriteria criteria, SwapiDataModel swapiData) {
-        reportCreator.withId(reportId)
-                .queryCriteria(criteria.getQueryCriteriaCharacterPhrase(), criteria.getQueryCriteriaPlanetName())
-                .records(swapiData)
-                .build();
     }
 }
