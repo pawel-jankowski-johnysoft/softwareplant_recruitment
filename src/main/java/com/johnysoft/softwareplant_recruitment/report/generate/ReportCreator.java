@@ -1,60 +1,48 @@
 package com.johnysoft.softwareplant_recruitment.report.generate;
 
 import com.johnysoft.softwareplant_recruitment.report.Report;
-import com.johnysoft.softwareplant_recruitment.report.generate.swapi.model.SwapiDataModel;
-import lombok.RequiredArgsConstructor;
+import com.johnysoft.softwareplant_recruitment.report.ReportEntry;
+import com.johnysoft.softwareplant_recruitment.report.generate.swapi.model.SingleSwapiRecord;
+import lombok.Data;
 import lombok.experimental.FieldDefaults;
+import org.mapstruct.Mapper;
+import org.mapstruct.Mapping;
+import org.mapstruct.factory.Mappers;
 import org.springframework.stereotype.Component;
 
 import java.util.List;
 
+import static com.johnysoft.softwareplant_recruitment.report.generate.ReportCreator.ReportCreatingMapper.INSTANCE;
 import static lombok.AccessLevel.PRIVATE;
 
 @Component
-@FieldDefaults(level = PRIVATE, makeFinal = true)
-@RequiredArgsConstructor
 class ReportCreator {
-    SwapiDataToReportConverter converter;
-    GenerateReportRepository generateReportRepository;
 
-    ReportDSL withId(long reportId) {
-        return new ReportDSL(reportId);
+    public Report create(ReportDetails reportDetails) {
+        Report report = INSTANCE.convert(reportDetails);
+        INSTANCE.convert(reportDetails.reportRecords).forEach(report::addReportEntry);
+        return report;
     }
 
-    @RequiredArgsConstructor(access = PRIVATE)
-    class ReportDSL {
-        private final long id;
-        private String characterPhrase;
-        private String planetName;
-        private List<?> reportRecords;
+    @Mapper
+    interface ReportCreatingMapper {
+        ReportCreatingMapper INSTANCE = Mappers.getMapper(ReportCreatingMapper.class);
 
-        ReportDSL queryCriteria(String characterPhrase, String planetName) {
-            this.characterPhrase = characterPhrase;
-            this.planetName = planetName;
-            return this;
-        }
+        @Mapping(ignore = true, target = "reportEntryId")
+        ReportEntry convert(SingleSwapiRecord record);
 
-        ReportDSL records(SwapiDataModel swapiDataModel) {
-            reportRecords = converter.convert(swapiDataModel);
-            return this;
-        }
+        List<ReportEntry> convert(List<SingleSwapiRecord> records);
 
-        void build() {
-            final Report report = initializeReport();
-            generateReportRepository.save(report);
-        }
+        @Mapping(source = "id", target = "reportId")
+        Report convert(ReportDetails record);
+    }
 
-        private Report initializeReport() {
-            Report report = new Report();
-
-            report.setReportId(id);
-            report.setCharacterPhrase(characterPhrase);
-            report.setPlanetName(planetName);
-
-            //prepare report records
-            this.reportRecords.forEach(System.out::println);
-
-            return report;
-        }
+    @Data(staticConstructor = "of")
+    @FieldDefaults(makeFinal = true, level = PRIVATE)
+    static class ReportDetails {
+        long id;
+        String characterPhrase;
+        String planetName;
+        List<SingleSwapiRecord> reportRecords;
     }
 }

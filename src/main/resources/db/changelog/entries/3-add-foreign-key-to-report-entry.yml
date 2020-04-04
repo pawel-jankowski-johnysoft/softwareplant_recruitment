@@ -1,0 +1,52 @@
+databaseChangeLog:
+  - changeSet:
+      id: 3
+      author: Johnthebest
+      changes:
+        - createTable:
+            tableName: report_entry
+            columns:
+              - column:
+                  name: report_entry_id
+                  type: int
+                  autoIncrement: true
+                  constraints:
+                    primaryKey: true
+                    nullable: false
+              - column:
+                  name: film_id
+                  type: int
+                  constraints:
+                    nullable: false
+              - column:
+                  name: film_name
+                  type: varchar(255)
+                  constraints:
+                    nullable: false
+              - column:
+                  name: character_id
+                  type: int
+                  constraints:
+                    nullable: false
+              - column:
+                  name: character_name
+                  type: varchar(255)
+                  constraints:
+                    nullable: false
+              - column:
+                  name: planet_id
+                  type: int
+                  constraints:
+                    nullable: false
+              - column:
+                  name: planet_name
+                  type: varchar(255)
+                  constraints:
+                    nullable: false
+              - column:
+                  name: report_id
+                  type: int
+                  constraints:
+                    nullable: false
+                    references: Report(report_id)
+                    foreignKeyName: report_report_entry_foreign_key

@@ -1,5 +1,6 @@
 package com.johnysoft.softwareplant_recruitment.report.remove;
 
+import com.johnysoft.softwareplant_recruitment.report.ReportRepository;
 import lombok.NonNull;
 import lombok.RequiredArgsConstructor;
 import lombok.experimental.FieldDefaults;
@@ -11,7 +12,7 @@ import static lombok.AccessLevel.PRIVATE;
 @FieldDefaults(level = PRIVATE, makeFinal = true)
 @RequiredArgsConstructor
 class ReportRemover {
-    ReportRemoveRepository reportRemoveRepository;
+    ReportRepository reportRemoveRepository;
 
     public void removeReport(@NonNull Long reportId) {
         reportRemoveRepository.deleteById(reportId);
