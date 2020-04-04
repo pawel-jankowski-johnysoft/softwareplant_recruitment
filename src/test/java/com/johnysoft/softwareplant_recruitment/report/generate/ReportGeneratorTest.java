@@ -1,7 +1,7 @@
 package com.johnysoft.softwareplant_recruitment.report.generate;
 
 import com.johnysoft.softwareplant_recruitment.report.ReportRepository;
-import com.johnysoft.softwareplant_recruitment.report.generate.swapi.SwapiDataProvider;
+import com.johnysoft.softwareplant_recruitment.report.generate.swapi.external.SwapiDataProvider;
 import com.johnysoft.softwareplant_recruitment.report.generate.swapi.model.SingleSwapiRecord;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
