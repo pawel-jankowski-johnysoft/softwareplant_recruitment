@@ -1,0 +1,13 @@
+package com.johnysoft.softwareplant_recruitment.common;
+
+import lombok.Getter;
+import lombok.RequiredArgsConstructor;
+
+@RequiredArgsConstructor
+public enum ErrorResponseCode {
+    REPORT_NOT_FOUND(100);
+
+    @Getter
+    private final int code;
+
+}
