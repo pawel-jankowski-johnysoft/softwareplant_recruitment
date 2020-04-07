@@ -2,8 +2,8 @@ package com.johnysoft.softwareplant_recruitment.report.generate;
 
 import com.johnysoft.softwareplant_recruitment.report.Report;
 import com.johnysoft.softwareplant_recruitment.report.generate.ReportCreator.ReportDetails;
-import com.johnysoft.softwareplant_recruitment.report.generate.swapi.SwapiDataProvider;
 import com.johnysoft.softwareplant_recruitment.report.generate.swapi.SwapiSearchParams;
+import com.johnysoft.softwareplant_recruitment.report.generate.swapi.external.SwapiDataProvider;
 import com.johnysoft.softwareplant_recruitment.report.generate.swapi.model.SwapiDataModel;
 import lombok.NonNull;
 import lombok.RequiredArgsConstructor;
@@ -29,7 +29,7 @@ class ReportGenerator {
     }
 
     private SwapiDataModel getSwapiData(GenerateReportQueryCriteria criteria) {
-        return swapiDataProvider.getReportData(SwapiSearchParams.builder()
+        return swapiDataProvider.getSwapiData(SwapiSearchParams.builder()
                 .characterPhrase(criteria.getQueryCriteriaCharacterPhrase())
                 .planetName(criteria.getQueryCriteriaPlanetName()).build());
     }
