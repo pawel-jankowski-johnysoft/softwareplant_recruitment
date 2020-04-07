@@ -14,6 +14,7 @@ import java.util.List;
 
 import static com.johnysoft.softwareplant_recruitment.report.generate.ReportCreator.ReportCreatingMapper.INSTANCE;
 import static lombok.AccessLevel.PRIVATE;
+import static org.mapstruct.ReportingPolicy.IGNORE;
 
 @Component
 class ReportCreator {
@@ -24,7 +25,7 @@ class ReportCreator {
         return report;
     }
 
-    @Mapper
+    @Mapper(unmappedTargetPolicy = IGNORE)
     interface ReportCreatingMapper {
         ReportCreatingMapper INSTANCE = Mappers.getMapper(ReportCreatingMapper.class);
 

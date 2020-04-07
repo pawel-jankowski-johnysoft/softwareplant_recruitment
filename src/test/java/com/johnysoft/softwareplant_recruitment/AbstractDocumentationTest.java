@@ -9,6 +9,8 @@ import static org.springframework.boot.test.context.SpringBootTest.WebEnvironmen
 
 @SpringBootTest(webEnvironment = RANDOM_PORT)
 public abstract class AbstractDocumentationTest {
+    protected static final String ERROR_CODE = "code";
+
     @LocalServerPort
     private int serverPort;
 
