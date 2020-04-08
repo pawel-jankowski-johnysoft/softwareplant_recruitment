@@ -1,7 +1,6 @@
 package com.johnysoft.softwareplant_recruitment.report.generate;
 
 import com.johnysoft.softwareplant_recruitment.AbstractDocumentationTest;
-import io.restassured.RestAssured;
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.mock.mockito.MockBean;
 
@@ -9,11 +8,10 @@ import static com.johnysoft.softwareplant_recruitment.report.generate.GenerateRe
 import static com.johnysoft.softwareplant_recruitment.report.generate.GenerateReportController.REPORT_URL;
 import static io.restassured.http.ContentType.JSON;
 import static org.mockito.ArgumentMatchers.eq;
-import static org.mockito.Mockito.doThrow;
 import static org.mockito.Mockito.verify;
 import static org.springframework.http.HttpStatus.BAD_REQUEST;
-import static org.springframework.http.HttpStatus.INTERNAL_SERVER_ERROR;
 import static org.springframework.http.HttpStatus.NO_CONTENT;
+import static org.springframework.restdocs.restassured3.RestAssuredRestDocumentation.document;
 
 class GenerateReportControllerTest extends AbstractDocumentationTest {
 
@@ -38,7 +36,8 @@ class GenerateReportControllerTest extends AbstractDocumentationTest {
     @Test
     public void reportGeneratedSuccessfully() {
         //expect
-        RestAssured.given()
+        given()
+                .filter(document(documentName()))
                 .contentType(JSON)
                 .body(QUERY_CRITERIA)
                 .put(GENERATE_REPORT_URL, GIVEN_REPORT_ID)
@@ -51,25 +50,12 @@ class GenerateReportControllerTest extends AbstractDocumentationTest {
 
     @Test
     public void cantGenerateReportWithInvalidCriteria() {
-        RestAssured.given()
+        given()
+                .filter(document(documentName()))
                 .contentType(JSON)
                 .body(new GenerateReportQueryCriteria())
                 .put(GENERATE_REPORT_URL, GIVEN_REPORT_ID)
                 .then()
                 .statusCode(BAD_REQUEST.value());
-    }
-
-    @Test
-    public void problemWithGeneratingReport() {
-        //given
-        doThrow(IllegalStateException.class).when(reportGenerator)
-                .generateReport(eq(GIVEN_REPORT_ID), eq(QUERY_CRITERIA));
-
-        RestAssured.given()
-                .contentType(JSON)
-                .body(QUERY_CRITERIA)
-                .put(GENERATE_REPORT_URL, GIVEN_REPORT_ID)
-                .then()
-                .statusCode(INTERNAL_SERVER_ERROR.value());
     }
 }

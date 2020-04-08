@@ -1,7 +1,6 @@
 package com.johnysoft.softwareplant_recruitment.report.remove;
 
 import com.johnysoft.softwareplant_recruitment.AbstractDocumentationTest;
-import io.restassured.RestAssured;
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.mock.mockito.MockBean;
 
@@ -21,7 +20,8 @@ class ReportRemoveControllerTest extends AbstractDocumentationTest {
 
     @Test
     void successfullyRemoveSingleReport() {
-        RestAssured.delete(DELETE_SINGLE_REPORT_URL, GIVEN_REPORT_ID)
+        given()
+                .delete(DELETE_SINGLE_REPORT_URL, GIVEN_REPORT_ID)
                 .then().statusCode(NO_CONTENT.value());
 
         verify(reportRemover).removeReport(GIVEN_REPORT_ID);
@@ -31,7 +31,8 @@ class ReportRemoveControllerTest extends AbstractDocumentationTest {
     void cantRemoveSingleReport() {
         doThrow(IllegalStateException.class).when(reportRemover).removeReport(GIVEN_REPORT_ID);
 
-        RestAssured.delete(DELETE_SINGLE_REPORT_URL, GIVEN_REPORT_ID)
+        given()
+                .delete(DELETE_SINGLE_REPORT_URL, GIVEN_REPORT_ID)
                 .then().statusCode(INTERNAL_SERVER_ERROR.value());
     }
 
