@@ -1,0 +1,41 @@
+= Documentation for generating reports
+
+== Finding reports
+
+=== Example error when not found report with given id
+
+Http request:
+include::{snippets}/find-report-controller-test/not-found-report-returns-error-code/http-request.adoc[]
+
+Path params:
+include::{snippets}/find-report-controller-test/not-found-report-returns-error-code/path-parameters.adoc[]
+
+Http Response:
+include::{snippets}/find-report-controller-test/not-found-report-returns-error-code/http-response.adoc[]
+
+=== finding all reports
+
+Request
+include::{snippets}/find-report-controller-test/found-all-reports/http-request.adoc[]
+
+Response body:
+include::{snippets}/find-report-controller-test/found-all-reports/response-body.adoc[]
+
+== Generating reports
+
+=== Example error when invalid criteria given
+
+Http request:
+include::{snippets}/generate-report-controller-test/cant-generate-report-with-invalid-criteria/http-request.adoc[]
+
+Http Response:
+include::{snippets}/generate-report-controller-test/cant-generate-report-with-invalid-criteria/http-response.adoc[]
+
+
+=== Example successful generated report
+
+Http request:
+include::{snippets}/generate-report-controller-test/report-generated-successfully/http-request.adoc[]
+
+Http Response:
+include::{snippets}/generate-report-controller-test/report-generated-successfully/http-response.adoc[]
