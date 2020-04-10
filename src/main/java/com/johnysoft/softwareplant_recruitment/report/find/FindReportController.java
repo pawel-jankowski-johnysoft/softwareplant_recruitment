@@ -13,11 +13,12 @@ import org.springframework.web.bind.annotation.RestController;
 import java.util.List;
 
 import static com.johnysoft.softwareplant_recruitment.common.ErrorResponseCode.REPORT_NOT_FOUND;
+import static com.johnysoft.softwareplant_recruitment.report.find.FindReportController.REPORT_URL;
 import static lombok.AccessLevel.PRIVATE;
 import static org.springframework.http.HttpStatus.NOT_FOUND;
 
 @RestController
-@RequestMapping(FindReportController.REPORT_URL)
+@RequestMapping(REPORT_URL)
 @FieldDefaults(level = PRIVATE, makeFinal = true)
 @RequiredArgsConstructor
 class FindReportController {

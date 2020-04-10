@@ -27,8 +27,6 @@ public class SwapiDataProvider {
     MoviesProvider moviesProvider;
 
     public SwapiDataModel getSwapiData(SwapiSearchParams swapiSearchParams) {
-
-
         return zip(
                 planetsProvider.planetsMatched(swapiSearchParams.getPlanetName()),
                 characterProvider.charactersMatched(swapiSearchParams.getCharacterPhrase())
