@@ -6,6 +6,7 @@ import lombok.Data;
 import lombok.experimental.FieldDefaults;
 
 import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.Size;
 
 import static lombok.AccessLevel.PRIVATE;
 
@@ -13,6 +14,6 @@ import static lombok.AccessLevel.PRIVATE;
 @FieldDefaults(level = PRIVATE)
 @JsonNaming(value = SnakeCaseStrategy.class)
 class GenerateReportQueryCriteria {
-    @NotBlank String queryCriteriaCharacterPhrase;
-    @NotBlank String queryCriteriaPlanetName;
+    @NotBlank @Size(min = 3) String queryCriteriaCharacterPhrase;
+    @NotBlank @Size(min = 3) String queryCriteriaPlanetName;
 }

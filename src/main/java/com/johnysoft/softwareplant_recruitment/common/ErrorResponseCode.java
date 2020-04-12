@@ -5,7 +5,8 @@ import lombok.RequiredArgsConstructor;
 
 @RequiredArgsConstructor
 public enum ErrorResponseCode {
-    REPORT_NOT_FOUND(100);
+    REPORT_NOT_FOUND(100),
+    REPORT_GENERATING_INVALID_DATA(101);
 
     @Getter
     private final int code;

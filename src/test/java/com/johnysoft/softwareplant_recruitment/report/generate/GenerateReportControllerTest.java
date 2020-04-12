@@ -4,9 +4,11 @@ import com.johnysoft.softwareplant_recruitment.AbstractDocumentationTest;
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.mock.mockito.MockBean;
 
+import static com.johnysoft.softwareplant_recruitment.common.ErrorResponseCode.REPORT_GENERATING_INVALID_DATA;
 import static com.johnysoft.softwareplant_recruitment.report.generate.GenerateReportController.REPORT_GENERATE_URL;
 import static com.johnysoft.softwareplant_recruitment.report.generate.GenerateReportController.REPORT_URL;
 import static io.restassured.http.ContentType.JSON;
+import static org.hamcrest.Matchers.equalTo;
 import static org.mockito.ArgumentMatchers.eq;
 import static org.mockito.Mockito.verify;
 import static org.springframework.http.HttpStatus.BAD_REQUEST;
@@ -21,15 +23,19 @@ class GenerateReportControllerTest extends AbstractDocumentationTest {
     private static final String CHARACTER_PHRASE = "CHARACTER_PHRASE";
     private static final String PLANET_NAME = "PLANET_NAME";
 
-    private static final GenerateReportQueryCriteria QUERY_CRITERIA = queryCriteria();
+    private static final GenerateReportQueryCriteria QUERY_CRITERIA = defaultQueryCriteria();
 
     @MockBean
     private ReportGenerator reportGenerator;
 
-    private static GenerateReportQueryCriteria queryCriteria() {
+    private static GenerateReportQueryCriteria defaultQueryCriteria() {
+        return queryCriteria(CHARACTER_PHRASE, PLANET_NAME);
+    }
+
+    private static GenerateReportQueryCriteria queryCriteria(String characterPhrase, String planetName) {
         final GenerateReportQueryCriteria queryCriteria = new GenerateReportQueryCriteria();
-        queryCriteria.setQueryCriteriaCharacterPhrase(CHARACTER_PHRASE);
-        queryCriteria.setQueryCriteriaPlanetName(PLANET_NAME);
+        queryCriteria.setQueryCriteriaCharacterPhrase(characterPhrase);
+        queryCriteria.setQueryCriteriaPlanetName(planetName);
         return queryCriteria;
     }
 
@@ -49,13 +55,28 @@ class GenerateReportControllerTest extends AbstractDocumentationTest {
     }
 
     @Test
-    public void cantGenerateReportWithInvalidCriteria() {
+    public void cantGenerateReportWithEmptyCriteria() {
         given()
                 .filter(document(documentName()))
                 .contentType(JSON)
                 .body(new GenerateReportQueryCriteria())
                 .put(GENERATE_REPORT_URL, GIVEN_REPORT_ID)
                 .then()
+                .body(ERROR_CODE, equalTo(REPORT_GENERATING_INVALID_DATA.getCode()))
+                .statusCode(BAD_REQUEST.value());
+    }
+
+    @Test
+    public void cantGenerateReportWithInvalidCriteria() {
+        final var tooShortCharacterPhrase = "to";
+        final var tooShortPlanetName = "sh";
+        given()
+                .filter(document(documentName()))
+                .contentType(JSON)
+                .body(queryCriteria(tooShortCharacterPhrase, tooShortPlanetName))
+                .put(GENERATE_REPORT_URL, GIVEN_REPORT_ID)
+                .then()
+                .body(ERROR_CODE, equalTo(REPORT_GENERATING_INVALID_DATA.getCode()))
                 .statusCode(BAD_REQUEST.value());
     }
 }

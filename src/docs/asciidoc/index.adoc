@@ -25,12 +25,13 @@ include::{snippets}/find-report-controller-test/found-all-reports/response-body.
 
 === Example error when invalid criteria given
 
-Http request:
+Invalid criteria:
 include::{snippets}/generate-report-controller-test/cant-generate-report-with-invalid-criteria/http-request.adoc[]
-
-Http Response:
 include::{snippets}/generate-report-controller-test/cant-generate-report-with-invalid-criteria/http-response.adoc[]
 
+Empty criteria:
+include::{snippets}/generate-report-controller-test/cant-generate-report-with-empty-criteria/http-request.adoc[]
+include::{snippets}/generate-report-controller-test/cant-generate-report-with-empty-criteria/http-response.adoc[]
 
 === Example successful generated report
 
