@@ -3,10 +3,12 @@ package com.johnysoft.softwareplant_recruitment.report.generate;
 import com.johnysoft.softwareplant_recruitment.report.Report;
 import com.johnysoft.softwareplant_recruitment.report.ReportEntry;
 import com.johnysoft.softwareplant_recruitment.report.generate.swapi.model.SingleSwapiRecord;
-import lombok.Data;
+import com.johnysoft.softwareplant_recruitment.report.generate.swapi.model.SwapiDataModel;
+import lombok.RequiredArgsConstructor;
 import lombok.experimental.FieldDefaults;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
+import org.mapstruct.Mappings;
 import org.mapstruct.factory.Mappers;
 import org.springframework.stereotype.Component;
 
@@ -17,11 +19,20 @@ import static lombok.AccessLevel.PRIVATE;
 import static org.mapstruct.ReportingPolicy.IGNORE;
 
 @Component
+@FieldDefaults(makeFinal = true, level = PRIVATE)
+@RequiredArgsConstructor
 class ReportCreator {
+    ReportSwapiDataProvider reportSwapiDataProvider;
 
-    public Report create(ReportDetails reportDetails) {
-        Report report = INSTANCE.convert(reportDetails);
-        INSTANCE.convert(reportDetails.reportRecords).forEach(report::addReportEntry);
+    Report create(Long reportId, GenerateReportQueryCriteria criteria) {
+        final SwapiDataModel data = reportSwapiDataProvider.getSwapiData(criteria.getQueryCriteriaPlanetName(),
+                criteria.getQueryCriteriaCharacterPhrase());
+        return buildReport(reportId, criteria, data);
+    }
+
+    private Report buildReport(Long reportId, GenerateReportQueryCriteria criteria, SwapiDataModel data) {
+        Report report = INSTANCE.convert(reportId, criteria);
+        INSTANCE.convert(data.getRecords()).forEach(report::addReportEntry);
         return report;
     }
 
@@ -34,16 +45,10 @@ class ReportCreator {
 
         List<ReportEntry> convert(List<SingleSwapiRecord> records);
 
-        @Mapping(source = "id", target = "reportId")
-        Report convert(ReportDetails record);
-    }
-
-    @Data(staticConstructor = "of")
-    @FieldDefaults(makeFinal = true, level = PRIVATE)
-    static class ReportDetails {
-        long id;
-        String characterPhrase;
-        String planetName;
-        List<SingleSwapiRecord> reportRecords;
+        @Mappings({
+                @Mapping(source = "reportDetails.queryCriteriaCharacterPhrase", target = "characterPhrase"),
+                @Mapping(source = "reportDetails.queryCriteriaPlanetName", target = "planetName"),
+        })
+        Report convert(Long reportId, GenerateReportQueryCriteria reportDetails);
     }
 }

@@ -13,11 +13,13 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
+import static com.johnysoft.softwareplant_recruitment.common.ErrorResponseCode.EXTERNAL_SERVICE_ERROR;
 import static com.johnysoft.softwareplant_recruitment.common.ErrorResponseCode.REPORT_GENERATING_INVALID_DATA;
 import static com.johnysoft.softwareplant_recruitment.report.generate.GenerateReportController.REPORT_URL;
 import static lombok.AccessLevel.PRIVATE;
 import static org.springframework.http.HttpStatus.BAD_REQUEST;
 import static org.springframework.http.HttpStatus.NO_CONTENT;
+import static org.springframework.http.HttpStatus.SERVICE_UNAVAILABLE;
 
 @RestController
 @RequestMapping(REPORT_URL)
@@ -40,7 +42,13 @@ class GenerateReportController {
 
     @ExceptionHandler({InvalidGenerateCriteriaException.class})
     @ResponseStatus(BAD_REQUEST)
-    ErrorResponse invalidGenerateReportCriteriaCriteriaHandle(InvalidGenerateCriteriaException e) {
+    ErrorResponse invalidGenerateReportCriteriaHandle(InvalidGenerateCriteriaException e) {
         return new ErrorResponse(e.generateMessage(), REPORT_GENERATING_INVALID_DATA.getCode());
+    }
+
+    @ExceptionHandler({SwapiDataProvidingException.class})
+    @ResponseStatus(SERVICE_UNAVAILABLE)
+    ErrorResponse swapiDataProvidingExceptionHandle(SwapiDataProvidingException e) {
+        return new ErrorResponse(e.getCause().getMessage(), EXTERNAL_SERVICE_ERROR.getCode());
     }
 }
