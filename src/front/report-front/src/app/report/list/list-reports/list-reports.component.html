@@ -1,0 +1,4 @@
+<mat-accordion #accordion>
+  <app-single-report *ngFor="let report of (reports | async)" [accordion]="accordion"
+                     [report]="report"></app-single-report>
+</mat-accordion>
