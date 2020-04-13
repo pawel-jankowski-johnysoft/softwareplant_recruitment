@@ -26,6 +26,8 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
                 .successHandler((request, response, authentication) -> response.setStatus(ACCEPTED.value()))
                 .failureHandler((request, response, exception) -> response.setStatus(UNAUTHORIZED.value()))
                 .and()
+                .exceptionHandling().authenticationEntryPoint((request, response, authException) -> response.setStatus(UNAUTHORIZED.value()))
+                .and()
                 .httpBasic()
                 .and()
                 .authorizeRequests()
