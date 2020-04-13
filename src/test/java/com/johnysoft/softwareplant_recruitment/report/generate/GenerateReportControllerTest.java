@@ -4,15 +4,18 @@ import com.johnysoft.softwareplant_recruitment.AbstractDocumentationTest;
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.mock.mockito.MockBean;
 
+import static com.johnysoft.softwareplant_recruitment.common.ErrorResponseCode.EXTERNAL_SERVICE_ERROR;
 import static com.johnysoft.softwareplant_recruitment.common.ErrorResponseCode.REPORT_GENERATING_INVALID_DATA;
 import static com.johnysoft.softwareplant_recruitment.report.generate.GenerateReportController.REPORT_GENERATE_URL;
 import static com.johnysoft.softwareplant_recruitment.report.generate.GenerateReportController.REPORT_URL;
 import static io.restassured.http.ContentType.JSON;
 import static org.hamcrest.Matchers.equalTo;
 import static org.mockito.ArgumentMatchers.eq;
+import static org.mockito.Mockito.doThrow;
 import static org.mockito.Mockito.verify;
 import static org.springframework.http.HttpStatus.BAD_REQUEST;
 import static org.springframework.http.HttpStatus.NO_CONTENT;
+import static org.springframework.http.HttpStatus.SERVICE_UNAVAILABLE;
 import static org.springframework.restdocs.restassured3.RestAssuredRestDocumentation.document;
 
 class GenerateReportControllerTest extends AbstractDocumentationTest {
@@ -40,7 +43,7 @@ class GenerateReportControllerTest extends AbstractDocumentationTest {
     }
 
     @Test
-    public void reportGeneratedSuccessfully() {
+    void reportGeneratedSuccessfully() {
         //expect
         given()
                 .filter(document(documentName()))
@@ -55,7 +58,7 @@ class GenerateReportControllerTest extends AbstractDocumentationTest {
     }
 
     @Test
-    public void cantGenerateReportWithEmptyCriteria() {
+    void cantGenerateReportWithEmptyCriteria() {
         given()
                 .filter(document(documentName()))
                 .contentType(JSON)
@@ -67,7 +70,7 @@ class GenerateReportControllerTest extends AbstractDocumentationTest {
     }
 
     @Test
-    public void cantGenerateReportWithInvalidCriteria() {
+    void cantGenerateReportWithInvalidCriteria() {
         final var tooShortCharacterPhrase = "to";
         final var tooShortPlanetName = "sh";
         given()
@@ -78,5 +81,24 @@ class GenerateReportControllerTest extends AbstractDocumentationTest {
                 .then()
                 .body(ERROR_CODE, equalTo(REPORT_GENERATING_INVALID_DATA.getCode()))
                 .statusCode(BAD_REQUEST.value());
+    }
+
+    @Test
+    void swapiCommunicationFailed() {
+        //given
+        doThrow(new SwapiDataProvidingException(new Exception()))
+                .when(reportGenerator).generateReport(eq(GIVEN_REPORT_ID), eq(QUERY_CRITERIA));
+
+        //expect
+        given()
+                .filter(document(documentName()))
+                .contentType(JSON)
+                .body(QUERY_CRITERIA)
+                .put(GENERATE_REPORT_URL, GIVEN_REPORT_ID)
+                .then()
+                .body(ERROR_CODE, equalTo(EXTERNAL_SERVICE_ERROR.getCode()))
+                .statusCode(SERVICE_UNAVAILABLE.value());
+
+
     }
 }

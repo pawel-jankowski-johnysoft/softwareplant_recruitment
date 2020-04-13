@@ -33,6 +33,11 @@ Empty criteria:
 include::{snippets}/generate-report-controller-test/cant-generate-report-with-empty-criteria/http-request.adoc[]
 include::{snippets}/generate-report-controller-test/cant-generate-report-with-empty-criteria/http-response.adoc[]
 
+=== Problem with external service
+
+include::{snippets}/generate-report-controller-test/swapi-communication-failed/http-request.adoc[]
+include::{snippets}/generate-report-controller-test/swapi-communication-failed/http-response.adoc[]
+
 === Example successful generated report
 
 Http request:
