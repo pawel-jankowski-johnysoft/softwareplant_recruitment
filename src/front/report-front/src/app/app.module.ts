@@ -10,6 +10,8 @@ import {GenerateReportModule} from "./report/generate/generate-report.module";
 import {BrowserModule} from "@angular/platform-browser";
 import {BrowserAnimationsModule} from "@angular/platform-browser/animations";
 import {CommonModule} from "@angular/common";
+import {AuthModule} from "./auth/auth.module";
+import {httpInterceptorProviders} from "./http-interceptors";
 
 @NgModule({
   declarations: [
@@ -25,8 +27,9 @@ import {CommonModule} from "@angular/common";
     ListReportsModule,
     GenerateReportModule,
     HttpClientModule,
+    AuthModule
   ],
-  providers: [HttpClient],
+  providers: [HttpClient, httpInterceptorProviders],
   bootstrap: [AppComponent]
 })
 export class AppModule {
