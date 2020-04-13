@@ -12,6 +12,7 @@ import org.springframework.boot.web.server.LocalServerPort;
 import org.springframework.restdocs.RestDocumentationContextProvider;
 import org.springframework.restdocs.RestDocumentationExtension;
 
+import static com.johnysoft.softwareplant_recruitment.configuration.SecurityConfiguration.LOGIN_URL;
 import static org.springframework.boot.test.context.SpringBootTest.WebEnvironment.RANDOM_PORT;
 import static org.springframework.restdocs.operation.preprocess.Preprocessors.prettyPrint;
 import static org.springframework.restdocs.restassured3.RestAssuredRestDocumentation.documentationConfiguration;
@@ -22,6 +23,10 @@ public abstract class AbstractDocumentationTest {
     protected static final String ERROR_CODE = "code";
     protected static final String MESSAGE = "message";
     private static final String DEFAULT_DOCUMENT_PATH = "{class-name}/{method-name}";
+    protected static final String USERNAME = "test";
+    protected static final String PASSWORD = "test";
+    private static final String USERNAME_PARAMETER = "username";
+    private static final String PASSWORD_PARAMETER = "password";
 
     @LocalServerPort
     private int serverPort;
@@ -43,6 +48,17 @@ public abstract class AbstractDocumentationTest {
 
     protected final String documentName() {
         return DEFAULT_DOCUMENT_PATH;
+    }
+
+    protected final RequestSpecification authenticatedGiven() {
+        final String sessionId = sessionId();
+        return given().sessionId(sessionId);
+    }
+
+    private final String sessionId() {
+        return given().formParam(USERNAME_PARAMETER, USERNAME)
+                .formParam(PASSWORD_PARAMETER, PASSWORD)
+                .post(LOGIN_URL).sessionId();
     }
 
     protected final RequestSpecification given() {

@@ -20,7 +20,7 @@ class ReportRemoveControllerTest extends AbstractDocumentationTest {
 
     @Test
     void successfullyRemoveSingleReport() {
-        given()
+        authenticatedGiven()
                 .delete(DELETE_SINGLE_REPORT_URL, GIVEN_REPORT_ID)
                 .then().statusCode(NO_CONTENT.value());
 
@@ -31,7 +31,7 @@ class ReportRemoveControllerTest extends AbstractDocumentationTest {
     void cantRemoveSingleReport() {
         doThrow(IllegalStateException.class).when(reportRemover).removeReport(GIVEN_REPORT_ID);
 
-        given()
+        authenticatedGiven()
                 .delete(DELETE_SINGLE_REPORT_URL, GIVEN_REPORT_ID)
                 .then().statusCode(INTERNAL_SERVER_ERROR.value());
     }
