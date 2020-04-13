@@ -1,0 +1,52 @@
+<mat-horizontal-stepper #stepper [linear]="true">
+  <!--  <mat-step [stepControl]="firstFormGroup">-->
+  <mat-step>
+    <ng-template matStepLabel>Welcome</ng-template>
+    <p>
+      Welcome to generating report wizard. <br/>
+      It helps you generate report using some criteria. <br/>
+      To start, click <b>Next</b>
+    </p>
+    <div>
+      <button (click)="stepper.next()" mat-button matStepperNext>Next</button>
+    </div>
+  </mat-step>
+  <mat-step [stepControl]="reportCriteria">
+    <form [formGroup]="reportCriteria">
+      <ng-template matStepLabel>Report details</ng-template>
+      <mat-form-field>
+        <mat-label>Report id</mat-label>
+        <input [formControl]="reportId" matInput placeholder="report id ( >1)" type="number">
+      </mat-form-field>
+      <br/>
+      <mat-form-field>
+        <mat-label>Character part name</mat-label>
+        <input [formControl]="characterName" matInput placeholder="Character name">
+      </mat-form-field>
+      <br/>
+      <mat-form-field>
+        <mat-label>Planet part name</mat-label>
+        <input [formControl]="planetName" matInput placeholder="Planet name">
+      </mat-form-field>
+      <div>
+        <button (click)="stepper.next()" mat-button matStepperNext>Next</button>
+      </div>
+    </form>
+  </mat-step>
+  <mat-step>
+    <ng-template matStepLabel>Summary</ng-template>
+    <section>
+      <div>
+        Your entered data:
+        <div>report id: {{reportId.value}}</div>
+        <div>Character part id: {{characterName.value}} </div>
+        <div>Planet part name: {{planetName.value}} </div>
+        <p class="margin-top-bottom-1em">To confirm & generate report click <b>finish</b></p>
+      </div>
+    </section>
+    <div>
+      <button (click)="generateReport()" color="primary" mat-raised-button type="button">Finish</button>
+    </div>
+  </mat-step>
+
+</mat-horizontal-stepper>
