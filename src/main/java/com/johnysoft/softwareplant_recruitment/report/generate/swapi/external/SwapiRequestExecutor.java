@@ -6,7 +6,6 @@ import lombok.Data;
 import lombok.RequiredArgsConstructor;
 import lombok.experimental.FieldDefaults;
 import org.springframework.core.ParameterizedTypeReference;
-import org.springframework.stereotype.Component;
 import org.springframework.web.reactive.function.BodyExtractors;
 import org.springframework.web.reactive.function.client.WebClient;
 import org.springframework.web.util.UriBuilder;
@@ -22,7 +21,6 @@ import static org.springframework.http.MediaType.APPLICATION_JSON;
 /**
  * make http calls to swapi service
  */
-@Component
 @FieldDefaults(makeFinal = true, level = PRIVATE)
 @RequiredArgsConstructor
 class SwapiRequestExecutor {

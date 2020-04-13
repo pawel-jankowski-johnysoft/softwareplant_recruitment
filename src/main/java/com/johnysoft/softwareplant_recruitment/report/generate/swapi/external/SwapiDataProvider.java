@@ -6,19 +6,18 @@ import com.johnysoft.softwareplant_recruitment.report.generate.swapi.external.Pl
 import com.johnysoft.softwareplant_recruitment.report.generate.swapi.model.SwapiDataModel;
 import lombok.RequiredArgsConstructor;
 import lombok.experimental.FieldDefaults;
-import org.springframework.stereotype.Component;
 import reactor.core.publisher.Mono;
 import reactor.util.function.Tuple2;
 
 import java.util.List;
 
 import static java.util.stream.Collectors.toUnmodifiableList;
+import static lombok.AccessLevel.PACKAGE;
 import static lombok.AccessLevel.PRIVATE;
 import static reactor.core.publisher.Mono.just;
 import static reactor.core.publisher.Mono.zip;
 
-@Component
-@RequiredArgsConstructor
+@RequiredArgsConstructor(access = PACKAGE)
 @FieldDefaults(level = PRIVATE, makeFinal = true)
 public class SwapiDataProvider {
 

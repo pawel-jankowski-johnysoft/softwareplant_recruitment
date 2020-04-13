@@ -1,18 +1,30 @@
 package com.johnysoft.softwareplant_recruitment.report.generate.swapi.external;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.reactive.function.client.WebClient;
 
 @Configuration
+@ConditionalOnProperty(prefix = "swapi", value = "base_url")
 class SwapiConfiguration {
-    protected static final String BASE_URL = "${swapi.base_url}";
+    private static final String BASE_URL = "${swapi.base_url}";
 
     @Bean
-    WebClient swapiWebClient(@Value(BASE_URL) String swapiBaseUrl) {
+    public SwapiDataProvider swapiDataProvider(@Value(BASE_URL) String swapiBaseUrl, ObjectMapper objectMapper) {
+        final var requestExecutor = new SwapiRequestExecutor(swapiWebClient(swapiBaseUrl), objectMapper);
+
+        return new SwapiDataProvider(new PlanetsProvider(requestExecutor),
+                new CharactersProvider(requestExecutor),
+                new MoviesProvider(requestExecutor));
+    }
+
+    private WebClient swapiWebClient(String swapiBaseUrl) {
         return WebClient.builder()
                 .baseUrl(swapiBaseUrl)
                 .build();
     }
+
 }

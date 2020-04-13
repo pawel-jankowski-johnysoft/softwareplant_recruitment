@@ -3,14 +3,12 @@ package com.johnysoft.softwareplant_recruitment.report.generate.swapi.external;
 import lombok.Data;
 import lombok.RequiredArgsConstructor;
 import lombok.experimental.FieldDefaults;
-import org.springframework.stereotype.Component;
 import reactor.core.publisher.Mono;
 
 import java.util.List;
 
 import static lombok.AccessLevel.PRIVATE;
 
-@Component
 @RequiredArgsConstructor
 @FieldDefaults(level = PRIVATE, makeFinal = true)
 class CharactersProvider {
