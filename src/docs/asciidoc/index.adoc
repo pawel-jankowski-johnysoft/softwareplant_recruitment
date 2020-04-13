@@ -45,3 +45,21 @@ include::{snippets}/generate-report-controller-test/report-generated-successfull
 
 Http Response:
 include::{snippets}/generate-report-controller-test/report-generated-successfully/http-response.adoc[]
+
+== Using basic authentication
+
+=== successfully authenticated request
+
+Http request:
+include::{snippets}/basic-authentication-test/basic-authentication-available/http-request.adoc[]
+
+Http Response:
+include::{snippets}/basic-authentication-test/basic-authentication-available/http-response.adoc[]
+
+=== authentication is require
+
+Http Request:
+include::{snippets}/basic-authentication-test/authentication-is-required/http-request.adoc[]
+
+Http Response:
+include::{snippets}/basic-authentication-test/authentication-is-required/http-response.adoc[]

@@ -45,7 +45,7 @@ class FindReportControllerTest extends AbstractDocumentationTest {
         doThrow(ReportNotFoundException.class).when(reportFinder).findById(NOT_EXISTING_REPORT_ID);
 
         //expect
-        given()
+        authenticatedGiven()
                 .filter(document(documentName(), pathParameters(
                         parameterWithName(REPORT_ID_PARAMETER_NAME).description(REPORT_ID_DESCRIPTION)
                 ), responseFields(
@@ -65,7 +65,7 @@ class FindReportControllerTest extends AbstractDocumentationTest {
                 .thenReturn(singletonList(reportDto()));
 
         //expect
-        given()
+        authenticatedGiven()
                 .filter(document(documentName()))
                 .get(REPORT_URL)
                 .then()

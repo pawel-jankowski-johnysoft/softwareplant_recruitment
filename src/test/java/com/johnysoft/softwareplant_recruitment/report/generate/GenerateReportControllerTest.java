@@ -50,7 +50,7 @@ class GenerateReportControllerTest extends AbstractDocumentationTest {
                 .thenReturn(Mono.empty());
 
         //expect
-        given()
+        authenticatedGiven()
                 .filter(document(documentName()))
                 .contentType(JSON)
                 .body(QUERY_CRITERIA)
@@ -64,7 +64,7 @@ class GenerateReportControllerTest extends AbstractDocumentationTest {
 
     @Test
     void cantGenerateReportWithEmptyCriteria() {
-        given()
+        authenticatedGiven()
                 .filter(document(documentName()))
                 .contentType(JSON)
                 .body(new GenerateReportQueryCriteria())
@@ -78,7 +78,7 @@ class GenerateReportControllerTest extends AbstractDocumentationTest {
     void cantGenerateReportWithInvalidCriteria() {
         final var tooShortCharacterPhrase = "to";
         final var tooShortPlanetName = "sh";
-        given()
+        authenticatedGiven()
                 .filter(document(documentName()))
                 .contentType(JSON)
                 .body(queryCriteria(tooShortCharacterPhrase, tooShortPlanetName))
@@ -95,7 +95,7 @@ class GenerateReportControllerTest extends AbstractDocumentationTest {
                 .when(reportGenerator).generateReport(eq(GIVEN_REPORT_ID), eq(QUERY_CRITERIA));
 
         //expect
-        given()
+        authenticatedGiven()
                 .filter(document(documentName()))
                 .contentType(JSON)
                 .body(QUERY_CRITERIA)
