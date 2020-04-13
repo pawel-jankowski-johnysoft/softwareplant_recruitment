@@ -11,6 +11,7 @@ import org.mapstruct.Mapping;
 import org.mapstruct.Mappings;
 import org.mapstruct.factory.Mappers;
 import org.springframework.stereotype.Component;
+import reactor.core.publisher.Mono;
 
 import java.util.List;
 
@@ -24,10 +25,10 @@ import static org.mapstruct.ReportingPolicy.IGNORE;
 class ReportCreator {
     ReportSwapiDataProvider reportSwapiDataProvider;
 
-    Report create(Long reportId, GenerateReportQueryCriteria criteria) {
-        final SwapiDataModel data = reportSwapiDataProvider.getSwapiData(criteria.getQueryCriteriaPlanetName(),
-                criteria.getQueryCriteriaCharacterPhrase());
-        return buildReport(reportId, criteria, data);
+    Mono<Report> create(Long reportId, GenerateReportQueryCriteria criteria) {
+        return reportSwapiDataProvider.getSwapiData(criteria.getQueryCriteriaPlanetName(),
+                criteria.getQueryCriteriaCharacterPhrase())
+                .map(data -> buildReport(reportId, criteria, data));
     }
 
     private Report buildReport(Long reportId, GenerateReportQueryCriteria criteria, SwapiDataModel data) {

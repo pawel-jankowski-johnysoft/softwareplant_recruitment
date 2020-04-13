@@ -9,6 +9,8 @@ import java.util.List;
 
 import static org.mockito.ArgumentMatchers.eq;
 import static org.mockito.Mockito.when;
+import static reactor.core.publisher.Mono.defer;
+import static reactor.core.publisher.Mono.just;
 
 class SwapiDataMockResponse {
 
@@ -25,10 +27,9 @@ class SwapiDataMockResponse {
     }
 
     void mockResponse(String characterPhrase, String planetName, List<SingleSwapiRecord> swapiRecords) {
-        final SwapiDataModel swapiDataModel = swapiDataModel(swapiRecords);
         when(swapiDataProvider.getSwapiData(eq(SwapiSearchParams.builder().characterPhrase(characterPhrase)
                 .planetName(planetName).build())))
-                .thenReturn(swapiDataModel);
+                .thenReturn(defer(() -> just(swapiDataModel(swapiRecords))));
     }
 
     private SwapiDataModel swapiDataModel(List<SingleSwapiRecord> swapiRecords) {

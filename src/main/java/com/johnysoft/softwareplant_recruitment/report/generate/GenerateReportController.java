@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
+import reactor.core.publisher.Mono;
 
 import static com.johnysoft.softwareplant_recruitment.common.ErrorResponseCode.EXTERNAL_SERVICE_ERROR;
 import static com.johnysoft.softwareplant_recruitment.common.ErrorResponseCode.REPORT_GENERATING_INVALID_DATA;
@@ -20,6 +21,7 @@ import static lombok.AccessLevel.PRIVATE;
 import static org.springframework.http.HttpStatus.BAD_REQUEST;
 import static org.springframework.http.HttpStatus.NO_CONTENT;
 import static org.springframework.http.HttpStatus.SERVICE_UNAVAILABLE;
+import static reactor.core.scheduler.Schedulers.elastic;
 
 @RestController
 @RequestMapping(REPORT_URL)
@@ -34,10 +36,10 @@ class GenerateReportController {
 
     @PutMapping(REPORT_GENERATE_URL)
     @ResponseStatus(code = NO_CONTENT)
-    public void generateReport(@PathVariable Long reportId,
-                               @RequestBody @Validated GenerateReportQueryCriteria criteria, Errors errors) {
+    public Mono<Void> generateReport(@PathVariable Long reportId,
+                                     @RequestBody @Validated GenerateReportQueryCriteria criteria, Errors errors) {
         generateReportCriteriaErrorsProcessor.process(errors);
-        reportGenerator.generateReport(reportId, criteria);
+        return reportGenerator.generateReport(reportId, criteria).subscribeOn(elastic());
     }
 
     @ExceptionHandler({InvalidGenerateCriteriaException.class})

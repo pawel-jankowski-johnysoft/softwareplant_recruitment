@@ -18,7 +18,7 @@ import static java.util.Collections.singletonList;
 @SpringBootTest
 class ReportGeneratorTest {
 
-    public static final long GIVEN_REPORT_ID = 6;
+    private static final long GIVEN_REPORT_ID = 6;
 
     private static final String GIVEN_PLANET_NAME = "planetName";
 
@@ -49,7 +49,7 @@ class ReportGeneratorTest {
                 .mockResponse(GIVEN_CHARACTER_PHRASE, GIVEN_PLANET_NAME, swapiRecords);
 
         //when
-        reportGenerator.generateReport(GIVEN_REPORT_ID, criteria());
+        reportGenerator.generateReport(GIVEN_REPORT_ID, criteria()).block();
 
         //then
         new ReportAssertions(reportRepository.getOne(GIVEN_REPORT_ID))
@@ -67,7 +67,7 @@ class ReportGeneratorTest {
         mockSecondSwapiResponse();
 
         //when
-        reportGenerator.generateReport(GIVEN_REPORT_ID, criteria());
+        reportGenerator.generateReport(GIVEN_REPORT_ID, criteria()).block();
 
         //then
         new ReportAssertions(reportRepository.getOne(GIVEN_REPORT_ID))
@@ -88,7 +88,7 @@ class ReportGeneratorTest {
                 .mockResponse(GIVEN_CHARACTER_PHRASE, GIVEN_PLANET_NAME, swapiRecords);
 
         //when
-        reportGenerator.generateReport(GIVEN_REPORT_ID, criteria());
+        reportGenerator.generateReport(GIVEN_REPORT_ID, criteria()).block();
     }
 
     private void mockSecondSwapiResponse() {
