@@ -4,12 +4,13 @@ import {ListReportsComponent} from "./report/list/list-reports/list-reports.comp
 import {GenerateReportComponent} from "./report/generate/generate-report/generate-report.component";
 import {AuthGuard} from "./auth.guard";
 import {LoginComponent} from "./auth/login/login.component";
+import {ReportMainComponent} from "./report/report-main/report-main.component";
 
 
 const routes: Routes = [
   {path: 'login', component: LoginComponent},
   {
-    path: 'report', canActivate: [AuthGuard], children: [
+    path: 'report', component: ReportMainComponent, canActivate: [AuthGuard], children: [
       {path: 'list', component: ListReportsComponent},
       {path: 'add', component: GenerateReportComponent}]
   },

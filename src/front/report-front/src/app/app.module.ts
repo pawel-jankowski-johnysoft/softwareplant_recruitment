@@ -12,6 +12,7 @@ import {BrowserAnimationsModule} from "@angular/platform-browser/animations";
 import {CommonModule} from "@angular/common";
 import {AuthModule} from "./auth/auth.module";
 import {httpInterceptorProviders} from "./http-interceptors";
+import {ReportModule} from "./report/report.module";
 
 @NgModule({
   declarations: [
@@ -27,7 +28,7 @@ import {httpInterceptorProviders} from "./http-interceptors";
     ListReportsModule,
     GenerateReportModule,
     HttpClientModule,
-    AuthModule
+    AuthModule, ReportModule
   ],
   providers: [HttpClient, httpInterceptorProviders],
   bootstrap: [AppComponent]
