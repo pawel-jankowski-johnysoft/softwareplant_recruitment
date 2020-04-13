@@ -2,7 +2,9 @@ package com.johnysoft.softwareplant_recruitment.report.generate;
 
 import com.johnysoft.softwareplant_recruitment.AbstractDocumentationTest;
 import org.junit.jupiter.api.Test;
+import org.mockito.Mockito;
 import org.springframework.boot.test.mock.mockito.MockBean;
+import reactor.core.publisher.Mono;
 
 import static com.johnysoft.softwareplant_recruitment.common.ErrorResponseCode.EXTERNAL_SERVICE_ERROR;
 import static com.johnysoft.softwareplant_recruitment.common.ErrorResponseCode.REPORT_GENERATING_INVALID_DATA;
@@ -44,6 +46,9 @@ class GenerateReportControllerTest extends AbstractDocumentationTest {
 
     @Test
     void reportGeneratedSuccessfully() {
+        Mockito.when(reportGenerator.generateReport(GIVEN_REPORT_ID, QUERY_CRITERIA))
+                .thenReturn(Mono.empty());
+
         //expect
         given()
                 .filter(document(documentName()))
@@ -98,7 +103,5 @@ class GenerateReportControllerTest extends AbstractDocumentationTest {
                 .then()
                 .body(ERROR_CODE, equalTo(EXTERNAL_SERVICE_ERROR.getCode()))
                 .statusCode(SERVICE_UNAVAILABLE.value());
-
-
     }
 }

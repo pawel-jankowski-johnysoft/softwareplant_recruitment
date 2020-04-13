@@ -7,6 +7,7 @@ import lombok.RequiredArgsConstructor;
 import lombok.experimental.FieldDefaults;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
+import reactor.core.publisher.Mono;
 
 import static java.lang.String.format;
 import static lombok.AccessLevel.PRIVATE;
@@ -19,7 +20,7 @@ class ReportSwapiDataProvider {
     private static final String CANT_GET_DATA_FROM_SWAPI_ERROR_MESAGE = "can't get data from swapi service, planet name: %s, character name: %s  ";
     SwapiDataProvider swapiDataProvider;
 
-    SwapiDataModel getSwapiData(String planetName, String charcterName) {
+    Mono<SwapiDataModel> getSwapiData(String planetName, String charcterName) {
         try {
             return swapiDataProvider.getSwapiData(SwapiSearchParams.builder()
                     .characterPhrase(charcterName)

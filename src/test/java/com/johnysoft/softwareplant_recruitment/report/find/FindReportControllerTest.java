@@ -21,17 +21,20 @@ import static org.springframework.restdocs.restassured3.RestAssuredRestDocumenta
 
 
 class FindReportControllerTest extends AbstractDocumentationTest {
-    protected static final long NOT_EXISTING_REPORT_ID = -1L;
-    protected static final String GIVEN_PLANET_NAME = "planet name";
-    protected static final long GIVEN_PLANET_ID = -1L;
-    protected static final String GIVEN_FILM_NAME = "film name";
-    protected static final long GIVEN_FILM_ID = -1L;
-    protected static final String GIVEN_CHARACTER_NAME = "character name";
-    protected static final long GIVEN_CHARACTER_ID = -1L;
-    protected static final long GIVEN_REPORT_ID = -1L;
-    protected static final String QUERY_CRITERIA_PLANET_NAME = "example planet name";
-    protected static final String QUERY_CRITERIA_CHARACTER_PHRASE = "example character phrase";
+    private static final long NOT_EXISTING_REPORT_ID = -1L;
+    private static final String GIVEN_PLANET_NAME = "planet name";
+    private static final long GIVEN_PLANET_ID = -1L;
+    private static final String GIVEN_FILM_NAME = "film name";
+    private static final long GIVEN_FILM_ID = -1L;
+    private static final String GIVEN_CHARACTER_NAME = "character name";
+    private static final long GIVEN_CHARACTER_ID = -1L;
+    private static final long GIVEN_REPORT_ID = -1L;
+    private static final String QUERY_CRITERIA_PLANET_NAME = "example planet name";
+    private static final String QUERY_CRITERIA_CHARACTER_PHRASE = "example character phrase";
     private static final String REPORT_ID_PARAMETER_NAME = "reportId";
+    private static final String ERROR_CODE_DESCRIPTION = "Error code";
+    private static final String ERROR_MESSAGE_DESCRIPTION = "Message for exception";
+    private static final String REPORT_ID_DESCRIPTION = "report id to find";
 
     @MockBean
     private ReportFinder reportFinder;
@@ -44,10 +47,10 @@ class FindReportControllerTest extends AbstractDocumentationTest {
         //expect
         given()
                 .filter(document(documentName(), pathParameters(
-                        parameterWithName(REPORT_ID_PARAMETER_NAME).description("report id to find")
+                        parameterWithName(REPORT_ID_PARAMETER_NAME).description(REPORT_ID_DESCRIPTION)
                 ), responseFields(
-                        fieldWithPath(ERROR_CODE).description("Error code"),
-                        fieldWithPath(MESSAGE).description("Message for exception")
+                        fieldWithPath(ERROR_CODE).description(ERROR_CODE_DESCRIPTION),
+                        fieldWithPath(MESSAGE).description(ERROR_MESSAGE_DESCRIPTION)
                 )))
                 .get(REPORT_URL + FIND_BY_ID_URL, NOT_EXISTING_REPORT_ID)
                 .then()

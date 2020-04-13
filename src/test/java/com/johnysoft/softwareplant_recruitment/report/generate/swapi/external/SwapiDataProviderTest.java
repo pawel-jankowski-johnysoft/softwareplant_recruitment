@@ -14,7 +14,7 @@ class SwapiDataProviderTest {
         final SwapiDataModel reportData = swapiDataProvider.getSwapiData(SwapiSearchParams.builder()
                 .planetName("raan")
                 .characterPhrase("Skywalker")
-                .build());
+                .build()).block();
         System.out.println(reportData);
     }
 }

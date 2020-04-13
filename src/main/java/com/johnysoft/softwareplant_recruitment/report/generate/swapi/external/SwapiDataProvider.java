@@ -26,15 +26,14 @@ public class SwapiDataProvider {
     CharactersProvider characterProvider;
     MoviesProvider moviesProvider;
 
-    public SwapiDataModel getSwapiData(SwapiSearchParams swapiSearchParams) {
+    public Mono<SwapiDataModel> getSwapiData(SwapiSearchParams swapiSearchParams) {
         return zip(
                 planetsProvider.planetsMatched(swapiSearchParams.getPlanetName()),
                 characterProvider.charactersMatched(swapiSearchParams.getCharacterPhrase())
         )
                 .map(it -> new PlanetCharacterCombiner(it.getT1(), it.getT2()).combine())
                 .flatMap(this::zipWithMovies)
-                .map(it -> new PlanetCharacterMovieMerger(it.getT1(), it.getT2()).merge())
-                .block();
+                .map(it -> new PlanetCharacterMovieMerger(it.getT1(), it.getT2()).merge());
     }
 
     private Mono<Tuple2<List<PlanetCharacterCombination>, List<MovieModel>>> zipWithMovies(

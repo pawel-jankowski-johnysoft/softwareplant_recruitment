@@ -1,10 +1,10 @@
 package com.johnysoft.softwareplant_recruitment.report.generate;
 
-import com.johnysoft.softwareplant_recruitment.report.Report;
 import lombok.NonNull;
 import lombok.RequiredArgsConstructor;
 import lombok.experimental.FieldDefaults;
 import org.springframework.stereotype.Component;
+import reactor.core.publisher.Mono;
 
 import static lombok.AccessLevel.PRIVATE;
 
@@ -15,9 +15,9 @@ class ReportGenerator {
     ReportCreator reportCreator;
     ReportPersister reportPersister;
 
-    public void generateReport(@NonNull Long reportId, GenerateReportQueryCriteria criteria) {
-        final Report report = reportCreator.create(reportId, criteria);
-        reportPersister.saveReport(report);
+    public Mono<Void> generateReport(@NonNull Long reportId, GenerateReportQueryCriteria criteria) {
+        return reportCreator.create(reportId, criteria)
+                .doOnNext(reportPersister::saveReport).then();
     }
 
 }
