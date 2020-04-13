@@ -13,7 +13,7 @@ import static java.lang.System.lineSeparator;
 @RequiredArgsConstructor
 @Getter
 class InvalidGenerateCriteriaException extends RuntimeException {
-    protected static final String INVALID_FIELD_MESSAGE_TEMPLATE = "Invalid field %s - reason: %s";
+    private static final String INVALID_FIELD_MESSAGE_TEMPLATE = "Invalid field %s - reason: %s";
     private final List<InvalidField> invalidFields;
 
     String generateMessage() {

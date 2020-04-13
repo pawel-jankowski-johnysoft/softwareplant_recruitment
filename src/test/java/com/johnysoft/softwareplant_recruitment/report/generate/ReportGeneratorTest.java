@@ -1,12 +1,10 @@
 package com.johnysoft.softwareplant_recruitment.report.generate;
 
+import com.johnysoft.softwareplant_recruitment.AbstractIntegrationTest;
 import com.johnysoft.softwareplant_recruitment.report.ReportRepository;
-import com.johnysoft.softwareplant_recruitment.report.generate.swapi.external.SwapiDataProvider;
 import com.johnysoft.softwareplant_recruitment.report.generate.swapi.model.SingleSwapiRecord;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.boot.test.mock.mockito.MockBean;
 
 import javax.transaction.Transactional;
 import java.util.List;
@@ -15,8 +13,7 @@ import static com.johnysoft.softwareplant_recruitment.report.generate.SwapiDataM
 import static java.util.Arrays.asList;
 import static java.util.Collections.singletonList;
 
-@SpringBootTest
-class ReportGeneratorTest {
+class ReportGeneratorTest extends AbstractIntegrationTest {
 
     private static final long GIVEN_REPORT_ID = 6;
 
@@ -29,9 +26,6 @@ class ReportGeneratorTest {
 
     @Autowired
     private ReportRepository reportRepository;
-
-    @MockBean
-    private SwapiDataProvider swapiDataProvider;
 
     @Test
     @Transactional

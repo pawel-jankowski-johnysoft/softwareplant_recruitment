@@ -1,18 +1,17 @@
 package com.johnysoft.softwareplant_recruitment.report.find;
 
+import com.johnysoft.softwareplant_recruitment.AbstractIntegrationTest;
 import com.johnysoft.softwareplant_recruitment.report.Report;
 import com.johnysoft.softwareplant_recruitment.report.ReportEntry;
 import com.johnysoft.softwareplant_recruitment.report.ReportRepository;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.context.SpringBootTest;
 
 import javax.transaction.Transactional;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
-@SpringBootTest
-class ReportFinderTest {
+class ReportFinderTest extends AbstractIntegrationTest {
 
     private static final String GIVEN_PLANET_NAME_PHRASE = "example planet name";
     private static final String GIVEN_CHARACTER_PHRASE = "example character phrase";
