@@ -46,6 +46,24 @@ include::{snippets}/generate-report-controller-test/report-generated-successfull
 Http Response:
 include::{snippets}/generate-report-controller-test/report-generated-successfully/http-response.adoc[]
 
+== Removing reports
+
+=== Remove single report
+
+Http request:
+include::{snippets}/report-remove-controller-test/successfully-remove-single-report/http-request.adoc[]
+
+Http Response:
+include::{snippets}/report-remove-controller-test/successfully-remove-single-report/http-response.adoc[]
+
+=== Remove all reports
+
+Http request:
+include::{snippets}/report-remove-controller-test/successfully-remove-all-reports/http-request.adoc[]
+
+Http Response:
+include::{snippets}/report-remove-controller-test/successfully-remove-all-reports/http-response.adoc[]
+
 == Using basic authentication
 
 === successfully authenticated request

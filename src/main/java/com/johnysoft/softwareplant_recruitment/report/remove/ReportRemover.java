@@ -15,7 +15,8 @@ class ReportRemover {
     ReportRepository reportRemoveRepository;
 
     public void removeReport(@NonNull Long reportId) {
-        reportRemoveRepository.deleteById(reportId);
+        reportRemoveRepository.findById(reportId)
+                .ifPresent(reportRemoveRepository::delete);
     }
 
     public void removeAll() {
