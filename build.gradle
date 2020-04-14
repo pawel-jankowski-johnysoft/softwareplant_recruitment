@@ -5,6 +5,8 @@ plugins {
     id "org.asciidoctor.convert" version "1.5.9.2"
 }
 
+apply plugin: 'war'
+
 group = 'com.johnysoft'
 version = '0.0.1-SNAPSHOT'
 sourceCompatibility = '11'
@@ -42,6 +44,8 @@ dependencies {
     implementation "org.mapstruct:mapstruct:${versions.mapStruct}"
     annotationProcessor "org.mapstruct:mapstruct-processor:${versions.mapStruct}"
 
+    providedRuntime 'org.springframework.boot:spring-boot-starter-tomcat'
+
     asciidoctor 'org.springframework.restdocs:spring-restdocs-asciidoctor'
     testImplementation 'org.springframework.restdocs:spring-restdocs-restassured'
     testImplementation 'io.rest-assured:rest-assured'
@@ -60,7 +64,7 @@ asciidoctor {
     dependsOn test
 }
 
-bootJar {
+bootWar {
     dependsOn asciidoctor
     from ("${asciidoctor.outputDir}/html5") {
         into 'static/docs'
