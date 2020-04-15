@@ -1,6 +1,7 @@
 package com.johnysoft.softwareplant_recruitment.report.generate.swapi.external;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.johnysoft.softwareplant_recruitment.report.generate.swapi.SwapiDataProvider;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.context.annotation.Bean;
@@ -16,7 +17,7 @@ class SwapiConfiguration {
     public SwapiDataProvider swapiDataProvider(@Value(BASE_URL) String swapiBaseUrl, ObjectMapper objectMapper) {
         final var requestExecutor = new SwapiRequestExecutor(swapiWebClient(swapiBaseUrl), objectMapper);
 
-        return new SwapiDataProvider(new PlanetsProvider(requestExecutor),
+        return new OldSwapiDataProvider(new PlanetsProvider(requestExecutor),
                 new CharactersProvider(requestExecutor),
                 new MoviesProvider(requestExecutor));
     }

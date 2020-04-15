@@ -1,7 +1,7 @@
 package com.johnysoft.softwareplant_recruitment.report.generate;
 
+import com.johnysoft.softwareplant_recruitment.report.generate.swapi.SwapiDataProvider;
 import com.johnysoft.softwareplant_recruitment.report.generate.swapi.SwapiSearchParams;
-import com.johnysoft.softwareplant_recruitment.report.generate.swapi.external.SwapiDataProvider;
 import com.johnysoft.softwareplant_recruitment.report.generate.swapi.model.SingleSwapiRecord;
 import com.johnysoft.softwareplant_recruitment.report.generate.swapi.model.SwapiDataModel;
 
