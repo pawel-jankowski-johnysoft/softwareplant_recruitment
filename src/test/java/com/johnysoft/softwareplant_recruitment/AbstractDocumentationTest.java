@@ -1,6 +1,6 @@
 package com.johnysoft.softwareplant_recruitment;
 
-import com.johnysoft.softwareplant_recruitment.report.generate.swapi.external.SwapiDataProvider;
+import com.johnysoft.softwareplant_recruitment.report.generate.swapi.SwapiDataProvider;
 import io.restassured.RestAssured;
 import io.restassured.builder.RequestSpecBuilder;
 import io.restassured.specification.RequestSpecification;

@@ -1,5 +1,6 @@
 package com.johnysoft.softwareplant_recruitment.report.generate.swapi.external;
 
+import com.johnysoft.softwareplant_recruitment.report.generate.swapi.SwapiDataProvider;
 import com.johnysoft.softwareplant_recruitment.report.generate.swapi.SwapiSearchParams;
 import com.johnysoft.softwareplant_recruitment.report.generate.swapi.external.MoviesProvider.MovieModel;
 import com.johnysoft.softwareplant_recruitment.report.generate.swapi.external.PlanetCharacterCombiner.PlanetCharacterCombination;
@@ -19,12 +20,13 @@ import static reactor.core.publisher.Mono.zip;
 
 @RequiredArgsConstructor(access = PACKAGE)
 @FieldDefaults(level = PRIVATE, makeFinal = true)
-public class SwapiDataProvider {
+class OldSwapiDataProvider implements SwapiDataProvider {
 
     PlanetsProvider planetsProvider;
     CharactersProvider characterProvider;
     MoviesProvider moviesProvider;
 
+    @Override
     public Mono<SwapiDataModel> getSwapiData(SwapiSearchParams swapiSearchParams) {
         return zip(
                 planetsProvider.planetsMatched(swapiSearchParams.getPlanetName()),
