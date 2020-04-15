@@ -16,6 +16,6 @@ class RefactoredSwapiDataConfiguration {
     @Primary
     @Bean
     public SwapiDataProvider swapiDataProvider(@Value(SWAPI_BASE_URL) String swapiBaseUrl) {
-        return new RefactoredSwapiDataProvider(null, null, null);
+        return new RefactoredSwapiDataProvider(null, null, null, null);
     }
 }

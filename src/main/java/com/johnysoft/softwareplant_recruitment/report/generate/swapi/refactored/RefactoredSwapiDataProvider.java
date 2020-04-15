@@ -13,15 +13,18 @@ import static reactor.core.publisher.Mono.zip;
 @FieldDefaults(level = PRIVATE, makeFinal = true)
 @RequiredArgsConstructor
 class RefactoredSwapiDataProvider implements SwapiDataProvider {
-    ToSwapiDataModelCombiner toSwapiDataModelCombiner;
-    PlanetCharacterPairsProvider planetCharacterPairsProvider;
+    SwapiDataCollector swapiDataCollector;
     FilmsProvider filmsProvider;
+    PlanetProvider planetProvider;
+    MovieCharacterProvider movieCharacterProvider;
 
     @Override
     public Mono<SwapiDataModel> getSwapiData(SwapiSearchParams swapiSearchParams) {
         return zip(
-                planetCharacterPairsProvider.getPairs(swapiSearchParams.getCharacterPhrase(), swapiSearchParams.getPlanetName()),
-                filmsProvider.getAllFilms()
-        ).map(it -> toSwapiDataModelCombiner.combine(it.getT1(), it.getT2()));
+                filmsProvider.getAllFilms(),
+                planetProvider.planets(swapiSearchParams.getPlanetName()),
+                movieCharacterProvider.characters(swapiSearchParams.getCharacterPhrase())
+        ).map(it -> swapiDataCollector.collect(it.getT1(), it.getT2(), it.getT3()));
     }
+
 }
