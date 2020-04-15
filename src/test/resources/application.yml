@@ -1,3 +1,7 @@
 logging:
   level:
     root: trace
+
+spring:
+  main:
+    allow-bean-definition-overriding: true
