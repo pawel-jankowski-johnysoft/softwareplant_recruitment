@@ -1,4 +1,4 @@
-package com.johnysoft.softwareplant_recruitment.report.generate.swapi.refactored;
+package com.johnysoft.softwareplant_recruitment.report.generate.swapi.v2;
 
 import com.johnysoft.softwareplant_recruitment.report.generate.swapi.SwapiDataProvider;
 import com.johnysoft.softwareplant_recruitment.report.generate.swapi.SwapiSearchParams;
@@ -12,7 +12,7 @@ import static reactor.core.publisher.Mono.zip;
 
 @FieldDefaults(level = PRIVATE, makeFinal = true)
 @RequiredArgsConstructor
-class RefactoredSwapiDataProvider implements SwapiDataProvider {
+class SimpleSwapiDataProvider implements SwapiDataProvider {
     SwapiDataCollector swapiDataCollector;
     FilmsProvider filmsProvider;
     PlanetProvider planetProvider;

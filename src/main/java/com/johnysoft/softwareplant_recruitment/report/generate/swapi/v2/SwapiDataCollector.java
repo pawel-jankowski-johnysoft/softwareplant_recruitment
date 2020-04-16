@@ -1,10 +1,10 @@
-package com.johnysoft.softwareplant_recruitment.report.generate.swapi.refactored;
+package com.johnysoft.softwareplant_recruitment.report.generate.swapi.v2;
 
 import com.johnysoft.softwareplant_recruitment.report.generate.swapi.model.SingleSwapiRecord;
 import com.johnysoft.softwareplant_recruitment.report.generate.swapi.model.SwapiDataModel;
-import com.johnysoft.softwareplant_recruitment.report.generate.swapi.refactored.FilmsProvider.Film;
-import com.johnysoft.softwareplant_recruitment.report.generate.swapi.refactored.MovieCharacterProvider.MovieCharacter;
-import com.johnysoft.softwareplant_recruitment.report.generate.swapi.refactored.PlanetProvider.Planet;
+import com.johnysoft.softwareplant_recruitment.report.generate.swapi.v2.FilmsProvider.Film;
+import com.johnysoft.softwareplant_recruitment.report.generate.swapi.v2.MovieCharacterProvider.MovieCharacter;
+import com.johnysoft.softwareplant_recruitment.report.generate.swapi.v2.PlanetProvider.Planet;
 import lombok.Value;
 
 import java.util.List;
