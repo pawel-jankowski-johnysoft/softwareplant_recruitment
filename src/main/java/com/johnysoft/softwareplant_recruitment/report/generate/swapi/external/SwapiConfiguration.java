@@ -2,13 +2,13 @@ package com.johnysoft.softwareplant_recruitment.report.generate.swapi.external;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.johnysoft.softwareplant_recruitment.report.generate.swapi.SwapiDataProvider;
+import com.johnysoft.softwareplant_recruitment.report.generate.swapi.SwapiRequestExecutor;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.context.annotation.Bean;
-import org.springframework.context.annotation.Configuration;
 import org.springframework.web.reactive.function.client.WebClient;
 
-@Configuration
+@Deprecated
 @ConditionalOnProperty(prefix = "swapi", value = "base_url")
 class SwapiConfiguration {
     private static final String BASE_URL = "${swapi.base_url}";

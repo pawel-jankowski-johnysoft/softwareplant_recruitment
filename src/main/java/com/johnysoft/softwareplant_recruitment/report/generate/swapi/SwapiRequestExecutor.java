@@ -1,4 +1,4 @@
-package com.johnysoft.softwareplant_recruitment.report.generate.swapi.external;
+package com.johnysoft.softwareplant_recruitment.report.generate.swapi;
 
 import com.fasterxml.jackson.databind.JavaType;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -23,7 +23,7 @@ import static org.springframework.http.MediaType.APPLICATION_JSON;
  */
 @FieldDefaults(makeFinal = true, level = PRIVATE)
 @RequiredArgsConstructor
-class SwapiRequestExecutor {
+public class SwapiRequestExecutor {
     private static final String CHARACTER_SEARCH_PARAMETER_NAME = "search";
     private static final String FORMAT = "format";
     private static final String JSON = "json";
@@ -31,7 +31,7 @@ class SwapiRequestExecutor {
     WebClient webClient;
     ObjectMapper objectMapper;
 
-    <T> Mono<List<T>> executeRequest(String url, String queryParam, Class<T> classType) {
+    public <T> Mono<List<T>> executeRequest(String url, String queryParam, Class<T> classType) {
         final JavaType javaType = objectMapper.getTypeFactory().constructParametricType(ModelResponse.class, classType);
 
         return webClient.get()

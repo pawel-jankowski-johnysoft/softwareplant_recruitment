@@ -1,5 +1,6 @@
 package com.johnysoft.softwareplant_recruitment.report.generate.swapi.external;
 
+import com.johnysoft.softwareplant_recruitment.report.generate.swapi.SwapiRequestExecutor;
 import lombok.Data;
 import lombok.RequiredArgsConstructor;
 import lombok.experimental.FieldDefaults;
