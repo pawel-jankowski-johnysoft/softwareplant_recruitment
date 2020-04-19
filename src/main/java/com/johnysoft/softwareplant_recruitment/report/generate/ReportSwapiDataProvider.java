@@ -21,13 +21,10 @@ class ReportSwapiDataProvider {
     SwapiDataProvider swapiDataProvider;
 
     Mono<SwapiDataModel> getSwapiData(String planetName, String charcterName) {
-        try {
-            return swapiDataProvider.getSwapiData(SwapiSearchParams.builder()
-                    .characterPhrase(charcterName)
-                    .planetName(planetName).build());
-        } catch (Exception e) {
-            log.error(format(CANT_GET_DATA_FROM_SWAPI_ERROR_MESAGE, planetName, charcterName), e);
-            throw new SwapiDataProvidingException(e);
-        }
+        return swapiDataProvider.getSwapiData(SwapiSearchParams.builder()
+                .characterPhrase(charcterName)
+                .planetName(planetName).build())
+                .doOnError(e -> log.error(format(CANT_GET_DATA_FROM_SWAPI_ERROR_MESAGE, planetName, charcterName), e))
+                .onErrorMap(SwapiDataProvidingException::new);
     }
 }
